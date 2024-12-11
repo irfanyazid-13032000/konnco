@@ -6,18 +6,18 @@
 @section('content')
   <div class="product-detail">
     <div class="product-image">
-      <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2024/11/4/2d46ac2e-8ddf-4cd2-8a8e-c6396ca60a81.png" alt="Sabun Nuvo Nih">
+      <img src="{{ asset('storage/' . $item->image) }}">
     </div>
     <div class="product-info">
-      <h1>Sabun Nuvo Nih</h1>
-      <p class="price">Rp. 23.000</p>
-      <p class="stock">Sisa produk: 50</p>
-      <p class="description">Sabun mandi anti-bakteri untuk melindungi keluarga Anda dari kuman. Tersedia dengan wangi segar yang tahan lama.</p>
+      <h1>{{$item->name}}</h1>
+      <p class="price">Rp. {{number_format($item->price)}}</p>
+      <p class="stock">Sisa produk: {{$item->stock}}</p>
+      <p class="description">{{$item->description}}</p>
 
       <div class="product-actions">
         <div class="quantity-control">
           <button onclick="decreaseQuantity()">-</button>
-          <input type="number" id="quantity" value="1" min="1" max="3">
+          <input type="number" id="quantity" value="1" min="1" max="{{$item->stock}}">
           <button onclick="increaseQuantity()">+</button>
         </div>
         <button class="add-to-cart">+ Keranjang</button>

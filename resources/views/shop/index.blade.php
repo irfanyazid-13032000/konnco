@@ -6,22 +6,20 @@
 @section('content')
 <div class="shop">
   <div class="container">
-    <div class="card">
-      <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2024/11/4/2d46ac2e-8ddf-4cd2-8a8e-c6396ca60a81.png" alt="">
-      <p class="judul">Sabun Nuvo Nih</p>
-      <p class="harga">Rp.23.000</p>
-    </div>
 
+  @foreach ($items as $item)
+  <a href="{{route('detail.product',['id'=>$item->id])}}">
     <div class="card">
-      <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2024/11/4/2d46ac2e-8ddf-4cd2-8a8e-c6396ca60a81.png" alt="">
-      <p class="judul">Sabun Nuvo Nih</p>
-      <p class="harga">Rp.23.000</p>
+      <img src="{{ asset('storage/' . $item->image) }}" alt="">
+      <p class="judul">{{$item->name}}</p>
+      <p class="harga">Rp. {{number_format($item->price)}}</p>
     </div>
-    <div class="card">
-      <img src="https://images.tokopedia.net/img/cache/900/VqbcmM/2024/11/4/2d46ac2e-8ddf-4cd2-8a8e-c6396ca60a81.png" alt="">
-      <p class="judul">Sabun Nuvo Nih</p>
-      <p class="harga">Rp.23.000</p>
-    </div>
+  </a>
+  @endforeach
+
+  
+
+
   </div>
 </div>
 @endsection
