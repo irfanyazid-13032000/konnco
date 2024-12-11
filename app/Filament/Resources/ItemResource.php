@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ImageColumn;
+
+
 
 
 
@@ -29,14 +33,15 @@ class ItemResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
-                TextInput::make('stock')->numeric(),
-                TextInput::make('price')->numeric(),
+                TextInput::make('name')->required(),
+                TextInput::make('stock')->numeric()->required(),
+                TextInput::make('price')->numeric()->required(),
                 Select::make('status')
                     ->options([
                         0 => 'active',
                         1 => 'deactive',
-                    ])
+                    ])->required(),
+                    FileUpload::make('image')->label('Image')
             ]);
     }
 
@@ -44,9 +49,10 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->searchable(),
                 TextColumn::make('price'),
                 TextColumn::make('stock'),
+                ImageColumn::make('image')
             ])
             ->filters([
                 //
