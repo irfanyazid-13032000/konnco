@@ -17,6 +17,7 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\Textarea;
 
 
 
@@ -41,7 +42,8 @@ class ItemResource extends Resource
                         0 => 'active',
                         1 => 'deactive',
                     ])->required(),
-                    FileUpload::make('image')->label('Image')
+                Textarea::make('description'),
+                FileUpload::make('image')->label('Image')
             ]);
     }
 
