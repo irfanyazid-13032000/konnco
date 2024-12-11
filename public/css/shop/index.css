@@ -1,0 +1,41 @@
+*{
+  margin: 0;
+}
+
+.shop{
+  width: 100%;
+  display: flex; /* Menggunakan flexbox */
+  justify-content: center; /* Horizontal centering */
+  background-color: blue;
+}
+
+.container{
+  background-color: black;
+  width: 85%;
+}
+
+.card{
+  background-color: rgb(255, 255, 255);
+  height: 300px;
+  display: inline-block;
+  border-radius: 20px;
+}
+
+p{
+  margin-left: 5px;
+}
+
+img{
+  height: 200px;
+  border-radius: 20px;
+}
+
+.beli{
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  font-weight: bold;
+  border-radius: 10px;
+  text-align: center;
+}
