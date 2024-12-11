@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/detail', function () {
-    return view('shop.detail');
+    return view('product.detail');
 });
+
