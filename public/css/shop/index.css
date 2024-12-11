@@ -170,3 +170,12 @@ body {
     align-items: center;
   }
 }
+
+.home-link {
+  text-decoration: none; /* Hilangkan underline */
+  color: inherit; /* Warna mengikuti elemen induk */
+}
+
+.home-link:visited {
+  color: inherit; /* Warna tidak berubah setelah diklik */
+}

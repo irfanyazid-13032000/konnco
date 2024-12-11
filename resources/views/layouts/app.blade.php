@@ -5,11 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Yazid Store')</title>
+  <link rel="stylesheet" href="{{ asset('css/shop/index.css') }}">
   <link rel="stylesheet" href="{{ asset('css/shop/detail.css') }}">
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">Yazid Store</div>
+    
+    <div class="logo">
+      <a href="/" class="home-link">Yazid Store</a>
+    </div>
+    
     <ul class="menu">
       <li><a href="#">Home</a></li>
       <li><a href="#">About</a></li>
