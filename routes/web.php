@@ -16,7 +16,6 @@ use App\Http\Controllers\CustomerController;
 */
 
 Route::get('/', [ProductController::class,'index'])->name('shop.index');
-Route::get('/cart', [ProductController::class,'cart'])->name('keranjang');
 
 Route::get('/detail/{id}',[ProductController::class,'detail'])->name('detail.product');
 
@@ -38,6 +37,7 @@ Route::post('/register', [CustomerController::class, 'register'])->name('registe
 
 // Protected routes
 Route::middleware('auth:customers')->group(function () {
+    Route::get('/cart', [ProductController::class,'cart'])->name('keranjang');
     Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
-    Route::post('/logout', [CustomerController::class, 'logout'])->name('logout');
+    Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
 });

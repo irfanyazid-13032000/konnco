@@ -20,13 +20,21 @@ class CustomerController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         if (Auth::guard('customers')->attempt($credentials)) {
-            return redirect()->route('checkout');
+            // Ambil user yang sedang login
+            $customer = Auth::guard('customers')->user();
+    
+            // Simpan full_name ke dalam session
+            $request->session()->put('full_name', $customer->full_name);
+            $request->session()->put('customer_login_id', $customer->id);
+    
+            return redirect()->route('shop.index');
         }
-
+    
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
+    
 
     public function checkout()
     {
@@ -36,7 +44,8 @@ class CustomerController extends Controller
     public function logout()
     {
         Auth::guard('customers')->logout();
-        return redirect()->route('login.index');
+        session()->flush();
+        return redirect()->route('shop.index');
     }
 
     public function showRegisterForm()

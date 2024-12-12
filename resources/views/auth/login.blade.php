@@ -1,10 +1,13 @@
 @extends('layouts.auth')
 
-@section('title', 'Login - Yazid Store')
+@section('title', 'Login - Your Store')
 
 @section('content')
 <div class="auth-container">
     <div class="auth-card">
+        <a href="{{route('shop.index')}}" class="linkToYourStoreIndex">
+            <h1>Your Store</h1>
+        </a>
         <h2>Login</h2>
         <form action="{{route('login.store')}}" method="POST">
             @csrf

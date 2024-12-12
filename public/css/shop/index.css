@@ -372,4 +372,8 @@ body {
   -moz-appearance: textfield; /* Hilangkan spinner bawaan browser di Firefox */
 }
 
+.linkToYourStoreIndex{
+  text-decoration: none;
+}
+
 

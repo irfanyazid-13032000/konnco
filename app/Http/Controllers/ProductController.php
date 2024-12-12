@@ -26,9 +26,9 @@ class ProductController extends Controller
 
     public function cart()
     {
-        // $items = Item::all();
-        $carts = Cart::with('item')->get();
-        // return $carts;
+        $carts = Cart::with('item')
+        ->where('customer_id', session('customer_login_id'))
+        ->get();
         return view('shop.cart',['cartItems'=>$carts]);
     }
 

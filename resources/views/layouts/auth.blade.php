@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Yazid Store')</title>
+  <title>@yield('title', 'Your Store')</title>
   <link rel="stylesheet" href="{{ asset('css/shop/index.css') }}">
 </head>
 <body>

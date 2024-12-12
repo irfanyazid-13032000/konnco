@@ -1,7 +1,7 @@
 <!-- resources/views/product/detail.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Yazid Store')
+@section('title', 'Your Store')
 
 @section('content')
 <div class="shop">
