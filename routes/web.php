@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::get('/', [ProductController::class,'index']);
+Route::get('/cart', [ProductController::class,'cart']);
 
 Route::get('/detail/{id}',[ProductController::class,'detail'])->name('detail.product');
 

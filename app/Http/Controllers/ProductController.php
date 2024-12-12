@@ -23,6 +23,12 @@ class ProductController extends Controller
         return view('product.detail',compact('item'));
     }
 
+    public function cart()
+    {
+        $items = Item::all();
+        return view('shop.cart',['cartItems'=>$items]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
