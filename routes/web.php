@@ -18,3 +18,11 @@ Route::get('/', [ProductController::class,'index']);
 
 Route::get('/detail/{id}',[ProductController::class,'detail'])->name('detail.product');
 
+Route::get('/login',function(){
+  return view('auth.login');
+})->name('login');
+
+
+Route::get('/register',function(){
+  return view('auth.register');
+})->name('register');
