@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Item;
+use App\Models\Cart;
 
 use Illuminate\Http\Request;
 
@@ -25,8 +26,10 @@ class ProductController extends Controller
 
     public function cart()
     {
-        $items = Item::all();
-        return view('shop.cart',['cartItems'=>$items]);
+        // $items = Item::all();
+        $carts = Cart::with('item')->get();
+        // return $carts;
+        return view('shop.cart',['cartItems'=>$carts]);
     }
 
     /**

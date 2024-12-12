@@ -21,7 +21,7 @@
       <li><a href="#">Services</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
-    <a href="#" class="cta">Cart (13)</a>
+    <a href="{{route('keranjang')}}" class="cta">Cart</a>
   </nav>
 
   <main>

@@ -19,23 +19,23 @@
             @foreach($cartItems as $item)
             <tr>
                 <td>
-                    <input type="checkbox" class="item-check" data-price="{{ $item->price }}" onchange="updateTotal()">
+                    <input type="checkbox" class="item-check" data-price="{{ $item->item->price }}" onchange="updateTotal()">
                 </td>
                 <td>
                     <div class="product-info">
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}">
-                        <span>{{ $item->name }}</span>
+                        <img src="{{ asset('storage/' . $item->item->image) }}" alt="{{ $item->item->name }}">
+                        <span>{{ $item->item->name }}</span>
                     </div>
                 </td>
                 <td>
                     <div class="quantity-control" >
-                        <button onclick="decreaseQuantity({{ $item->id }})">-</button>
-                        <input type="number" id="quantity-{{ $item->id }}" value="{{ $item->quantity }}" min="1" max="{{ $item->stock }}" data-item-id="{{ $item->id }}" onchange="updateTotal()">
-                        <button onclick="increaseQuantity({{ $item->id }}, {{ $item->stock }})">+</button>
+                        <button onclick="decreaseQuantity({{ $item->item->id }})">-</button>
+                        <input type="number" id="quantity-{{ $item->item->id }}" value="{{ $item->qty }}" min="1" max="{{ $item->item->stock }}" data-item-id="{{ $item->item->id }}" onchange="updateTotal()">
+                        <button onclick="increaseQuantity({{ $item->item->id }}, {{ $item->item->stock }})">+</button>
                     </div>
                 </td>
-                <td style="text-align:center;">Rp. {{ number_format($item->price) }}</td>
-                <td style="text-align:center;" id="total-{{ $item->id }}">Rp. {{ number_format($item->price * $item->quantity) }}</td>
+                <td style="text-align:center;">Rp. {{ number_format($item->item->price) }}</td>
+                <td style="text-align:center;" id="total-{{ $item->item->id }}">Rp. {{ number_format($item->item->price * $item->qty) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -72,6 +72,7 @@
             // Update total per item
             const itemTotal = row.querySelector(`#total-${input.getAttribute('data-item-id')}`);
             itemTotal.textContent = `Rp. ${(price * quantity).toLocaleString()}`;
+            console.log(price)
         });
 
         document.getElementById('total-price').textContent = `Rp. ${total.toLocaleString()}`;
