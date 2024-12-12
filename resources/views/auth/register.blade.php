@@ -6,11 +6,11 @@
 <div class="auth-container">
     <div class="auth-card">
         <h2>Register</h2>
-        <form action="{{route('register')}}" method="POST">
+        <form action="{{route('register.store')}}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="full_name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email Address</label>
@@ -23,7 +23,7 @@
             
             <button type="submit" class="btn">Register</button>
         </form>
-        <p class="auth-link">Already have an account? <a href="{{route('login')}}">Login</a></p>
+        <p class="auth-link">Already have an account? <a href="{{route('login.index')}}">Login</a></p>
     </div>
 </div>
 @endsection
