@@ -28,10 +28,14 @@
       <li><a href="{{route('logout')}}">Logout</a></li>
       @else
       <li><a href="{{route('login.index')}}">Login</a></li>
-      @endif
-     
+      @endif 
     </ul>
-    <a href="{{route('keranjang')}}" class="cta">Cart</a>
+
+    @if (Route::currentRouteName() !== 'keranjang')
+      <a href="{{ route('keranjang') }}" class="cta">Cart</a>
+    @else
+      <a href=""></a>
+    @endif
   </nav>
 
   <main>
