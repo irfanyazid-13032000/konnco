@@ -16,12 +16,12 @@
 
       <div class="product-actions">
         <div class="quantity-control">
-          <button onclick="decreaseQuantity()">-</button>
-          <input type="number" id="quantity" value="1" min="1" max="{{$item->stock}}">
-          <button onclick="increaseQuantity()">+</button>
-        </div>
-        <button class="add-to-cart">+ Keranjang</button>
-        <button class="buy-now">Beli Langsung</button>
+            <button onclick="decreaseQuantity()">-</button>
+            <input type="number" id="quantity" value="1" min="1" max="{{$item->stock}}">
+            <button onclick="increaseQuantity()">+</button>
+          </div>
+          <button class="add-to-cart" onclick="addToCart()">+ Keranjang</button>
+          <button class="buy-now">Beli Langsung</button>
       </div>
     </div>
   </div>
@@ -44,5 +44,32 @@
       input.value = parseInt(input.value) - 1;
     }
   }
+
+
+
+
+  const csrfToken = '{{ csrf_token() }}'; // Pastikan Laravel CSRF token di-include
+
+function addToCart() {
+    const quantity = document.getElementById('quantity').value;
+
+    fetch('{{route("tambah")}}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken // Untuk proteksi CSRF Laravel
+        },
+        body: JSON.stringify({
+            product_id: '{{ $item->id }}', // ID produk
+            quantity: quantity
+        })
+    })
+    .then(data => {
+      window.location.href = '{{ route("keranjang") }}';
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+  
 </script>
 @endpush

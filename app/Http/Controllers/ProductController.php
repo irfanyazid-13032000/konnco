@@ -32,6 +32,25 @@ class ProductController extends Controller
         return view('shop.cart',['cartItems'=>$carts]);
     }
 
+    public function add(Request $request)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'product_id' => 'required|exists:items,id', // Pastikan ID produk valid
+            'quantity' => 'required|integer|min:1', // Harus bilangan bulat >= 1
+        ]);
+    
+        // Buat data di keranjang
+        Cart::create([
+            'item_id' => $validated['product_id'], 
+            'qty' => $validated['quantity'], 
+            'customer_id' => session('customer_login_id') // Ambil dari session
+        ]);
+    
+        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!'], 200);
+    }
+    
+
     /**
      * Show the form for creating a new resource.
      */

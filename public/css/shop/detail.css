@@ -154,6 +154,16 @@ input[type=number]::-webkit-inner-spin-button {
   font-size: 1rem;
 }
 
+a{
+  background-color: #1e293b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .add-to-cart {
   background-color: #1e293b;
   color: #fff;
@@ -170,4 +180,8 @@ input[type=number]::-webkit-inner-spin-button {
 
 .buy-now:hover {
   background-color: #0ea5e9;
+}
+
+form{
+  display: inline-block;
 }
