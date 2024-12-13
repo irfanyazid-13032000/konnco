@@ -62,63 +62,68 @@
 
 @push('scripts')
 <script>
-    // Fungsi untuk toggle semua checkbox
-    function toggleAll(source) {
-        const checkboxes = document.querySelectorAll('.item-check');
-        checkboxes.forEach(checkbox => checkbox.checked = source.checked);
-        updateTotal();
+   let total = 0; // Jadikan total sebagai variabel global
+
+// Fungsi untuk toggle semua checkbox
+function toggleAll(source) {
+    const checkboxes = document.querySelectorAll('.item-check');
+    checkboxes.forEach(checkbox => checkbox.checked = source.checked);
+    updateTotal();
+}
+
+// Fungsi untuk update total harga berdasarkan checkbox
+function updateTotal() {
+    const checkboxes = document.querySelectorAll('.item-check:checked');
+    total = 0; // Reset nilai total
+
+    checkboxes.forEach(checkbox => {
+        const row = checkbox.closest('tr');
+        const input = row.querySelector('input[type="number"]');
+        const price = parseFloat(checkbox.getAttribute('data-price'));
+        const quantity = parseInt(input.value);
+        total += price * quantity;
+
+        // Update total per item
+        const itemTotal = row.querySelector(`#total-${input.getAttribute('data-item-id')}`);
+        itemTotal.textContent = `Rp. ${(price * quantity).toLocaleString()}`;
+    });
+
+    document.getElementById('total-price').textContent = `Rp. ${total.toLocaleString()}`;
+}
+
+// Fungsi simulasi checkout
+function checkout() {
+    console.log('Total sebelum request:', total); // Debugging
+
+    const selectedItems = Array.from(document.querySelectorAll('.item-check:checked'));
+    if (selectedItems.length === 0) {
+        alert('Pilih setidaknya satu item untuk checkout.');
+        return;
     }
 
-    // Fungsi untuk update total harga berdasarkan checkbox
-    function updateTotal() {
-        const checkboxes = document.querySelectorAll('.item-check:checked');
-        let total = 0;
+    const csrfToken = '{{ csrf_token() }}'; // Pastikan Laravel CSRF token di-include
 
-        checkboxes.forEach(checkbox => {
-            const row = checkbox.closest('tr');
-            const input = row.querySelector('input[type="number"]');
-            const price = parseFloat(checkbox.getAttribute('data-price'));
-            const quantity = parseInt(input.value);
-            total += price * quantity;
+    // Kirim request POST ke endpoint /order
+    fetch("{{route('order')}}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken // Untuk proteksi CSRF Laravel
+        },
+        body: JSON.stringify({ total_order: total })
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        alert("barang berhasil di-checkout")
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat memproses order.');
+    });
+}
 
-            // Update total per item
-            const itemTotal = row.querySelector(`#total-${input.getAttribute('data-item-id')}`);
-            itemTotal.textContent = `Rp. ${(price * quantity).toLocaleString()}`;
-            console.log(price)
-        });
-
-        document.getElementById('total-price').textContent = `Rp. ${total.toLocaleString()}`;
-    }
-
-    // Fungsi untuk menaikkan jumlah qty
-    function increaseQuantity(itemId, maxStock) {
-        const input = document.getElementById(`quantity-${itemId}`);
-        if (parseInt(input.value) < maxStock) {
-            input.value = parseInt(input.value) + 1;
-            updateTotal();
-        } else {
-            alert("Stock tidak mencukupi");
-        }
-    }
-
-    // Fungsi untuk menurunkan jumlah qty
-    function decreaseQuantity(itemId) {
-        const input = document.getElementById(`quantity-${itemId}`);
-        if (parseInt(input.value) > 1) {
-            input.value = parseInt(input.value) - 1;
-            updateTotal();
-        }
-    }
-
-    // Fungsi simulasi checkout
-    function checkout() {
-        const selectedItems = Array.from(document.querySelectorAll('.item-check:checked'));
-        if (selectedItems.length === 0) {
-            alert('Pilih setidaknya satu item untuk checkout.');
-            return;
-        }
-        alert('Checkout berhasil! Barang Anda sedang diproses.');
-    }
 </script>
 
 
