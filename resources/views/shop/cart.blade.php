@@ -18,6 +18,11 @@
             </tr>
         </thead>
         <tbody id="cart-items">
+            @if (count($cartItems) < 1)
+            <tr>
+                <td colspan="6" style="text-align:center;">Upss.. Keranjangmu Kosong nich. Masukin Barang ke keranjang Yuk!!!</td>
+            </tr>
+            @endif
             @foreach($cartItems as $item)
             <tr>
                 <td>
@@ -46,7 +51,11 @@
 
     <div class="cart-actions">
         <p>Total Harga: <span id="total-price">Rp. 0</span></p>
+        @if (count($cartItems) < 1)
+        <button class="btn checkout-btn">Tidak bisa Checkout</button>
+        @else
         <button class="btn checkout-btn" onclick="checkout()">Checkout</button>
+        @endif
     </div>
 </div>
 @endsection
@@ -111,4 +120,6 @@
         alert('Checkout berhasil! Barang Anda sedang diproses.');
     }
 </script>
+
+
 @endpush

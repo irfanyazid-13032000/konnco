@@ -64,8 +64,16 @@ function addToCart() {
             quantity: quantity
         })
     })
-    .then(data => {
+    .then(response => {
+      return response.json()
+    })
+    .then(data=>{
+      console.log(data);
+      if (data.alert == true) {
+        alert("Barang Ini Sudah ada di Keranjang mu !!!");
+      }
       window.location.href = '{{ route("keranjang") }}';
+
     })
     .catch(error => console.error('Error:', error));
 }

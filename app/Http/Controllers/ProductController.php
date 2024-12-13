@@ -34,6 +34,16 @@ class ProductController extends Controller
 
     public function add(Request $request)
     {
+
+        $alreadyInCart = Cart::where('customer_id', session('customer_login_id'))
+            ->where('item_id', $request->product_id)
+            ->first();
+
+        if ($alreadyInCart) {
+            return response()->json(['message' => 'Produk Sudah Ada di Keranjang!','alert'=>true], 200);
+        }
+    
+        
         // Validasi input
         $validated = $request->validate([
             'product_id' => 'required|exists:items,id', // Pastikan ID produk valid
