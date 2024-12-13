@@ -94,8 +94,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $product_id)
     {
-        //
+        Cart::find($product_id)->delete();
+        return redirect()->route('keranjang');
     }
 }

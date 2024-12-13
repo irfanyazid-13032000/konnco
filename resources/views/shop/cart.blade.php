@@ -3,16 +3,18 @@
 @section('title', 'Keranjang Belanja')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 <div class="cart-container">
     <h1>Keranjang Belanja</h1>
     <table class="cart-table">
         <thead>
             <tr>
                 <th><input type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
-                <th width="25%" style="text-align:center;">Produk</th>
+                <th width="25%" style="text-align:center;">Product</th>
                 <th width="25%" style="text-align:center;">Qty</th>
-                <th width="25%" style="text-align:center;">Harga</th>
+                <th width="25%" style="text-align:center;">Price</th>
                 <th width="25%" style="text-align:center;">Total</th>
+                <th style="text-align:center;">Delete</th>
             </tr>
         </thead>
         <tbody id="cart-items">
@@ -36,6 +38,7 @@
                 </td>
                 <td style="text-align:center;">Rp. {{ number_format($item->item->price) }}</td>
                 <td style="text-align:center;" id="total-{{ $item->item->id }}">Rp. {{ number_format($item->item->price * $item->qty) }}</td>
+                <td style="text-align:center;" class="delete-cart"><a href="{{route('hapus',['product_id'=>$item->id])}}"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             @endforeach
         </tbody>

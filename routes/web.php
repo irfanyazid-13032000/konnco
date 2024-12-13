@@ -38,7 +38,8 @@ Route::post('/register', [CustomerController::class, 'register'])->name('registe
 // Protected routes
 Route::middleware('auth:customers')->group(function () {
     Route::get('/cart', [ProductController::class,'cart'])->name('keranjang');
-    Route::post('/insert', [ProductController::class,'add'])->name('tambah');
+    Route::post('/insert/cart', [ProductController::class,'add'])->name('tambah');
+    Route::get('/delete/cart/{product_id}', [ProductController::class,'destroy'])->name('hapus');
     Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
 });
