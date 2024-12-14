@@ -50,7 +50,15 @@
 
   const csrfToken = '{{ csrf_token() }}'; // Pastikan Laravel CSRF token di-include
 
+  const customer_login_id = "{{session('customer_login_id')}}"
 function addToCart() {
+
+  if (customer_login_id == '') {
+    alert("Silahkan Login terlebih Dahulu")
+    window.location.href = '{{ route("login.index") }}';
+  }
+
+  
     const quantity = document.getElementById('quantity').value;
 
     fetch('{{route("tambah")}}', {

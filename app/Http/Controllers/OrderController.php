@@ -31,15 +31,14 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+        return response()->json($request);
 
-        $validatedData = $request->validate([
-            'total_order' => 'required|integer'
-        ]);
+        
 
         $receipt_number = Str::random(40);
 
         Order::create([
-            'total_order' => $validatedData['total_order'],
+            // 'total_order' => $validatedData['total_order'],
             'customer_id' => session('customer_login_id'),
             'receipt_number' => $receipt_number,
         ]);

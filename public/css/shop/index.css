@@ -377,3 +377,30 @@ body {
 }
 
 
+  /* Membesarkan ukuran checkbox */
+  .large-checkbox {
+    width: 30px; /* Lebar checkbox */
+    height: 30px; /* Lebar checkbox */
+    appearance: none; /* Menghapus tampilan default checkbox */
+    -webkit-appearance: none; /* Untuk browser berbasis WebKit */
+    border: 2px solid #000; /* Border checkbox */
+    border-radius: 5px; /* Membuat sudut membulat */
+    background-color: #fff; /* Warna latar */
+    cursor: pointer; /* Ubah kursor */
+  }
+
+  /* Tampilan saat di-check */
+  .large-checkbox:checked {
+    background-color: #4CAF50; /* Warna latar saat di-check */
+    border-color: #4CAF50; /* Warna border saat di-check */
+  }
+
+  /* Tambahkan simbol centang */
+  .large-checkbox:checked::after {
+    content: '✔'; /* Simbol centang */
+    display: block;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+  }
+

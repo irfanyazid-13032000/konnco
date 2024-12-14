@@ -9,7 +9,7 @@
     <table class="cart-table">
         <thead>
             <tr>
-                <th><input type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
+                <th><input class="large-checkbox" type="checkbox" id="select-all" onclick="toggleAll(this)"></th>
                 <th width="25%" style="text-align:center;">Product</th>
                 <th width="25%" style="text-align:center;">Qty</th>
                 <th width="25%" style="text-align:center;">Price</th>
@@ -26,7 +26,7 @@
             @foreach($cartItems as $item)
             <tr>
                 <td>
-                    <input type="checkbox" class="item-check" data-price="{{ $item->item->price }}" onchange="updateTotal()">
+                    <input type="checkbox" class="item-check large-checkbox" data-price="{{ $item->item->price }}" data-id-product="{{$item->item->id}}" onchange="updateTotal()">
                 </td>
                 <td>
                     <div class="product-info">
@@ -71,15 +71,18 @@ function toggleAll(source) {
     updateTotal();
 }
 
+let checkedProductsAndQty = []
 // Fungsi untuk update total harga berdasarkan checkbox
 function updateTotal() {
     const checkboxes = document.querySelectorAll('.item-check:checked');
     total = 0; // Reset nilai total
+    checkedProductsAndQty = [] //reset product yang di checklist
 
     checkboxes.forEach(checkbox => {
         const row = checkbox.closest('tr');
         const input = row.querySelector('input[type="number"]');
         const price = parseFloat(checkbox.getAttribute('data-price'));
+        checkedProductsAndQty.push({"product_id" : checkbox.getAttribute('data-id-product'),"qty" : input.value})
         const quantity = parseInt(input.value);
         total += price * quantity;
 
@@ -93,7 +96,6 @@ function updateTotal() {
 
 // Fungsi simulasi checkout
 function checkout() {
-    console.log('Total sebelum request:', total); // Debugging
 
     const selectedItems = Array.from(document.querySelectorAll('.item-check:checked'));
     if (selectedItems.length === 0) {
@@ -110,13 +112,14 @@ function checkout() {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken // Untuk proteksi CSRF Laravel
         },
-        body: JSON.stringify({ total_order: total })
+        body: JSON.stringify({ checkout_products:checkedProductsAndQty })
     })
     .then(response => {
         return response.json();
     })
     .then(data => {
         alert("barang berhasil di-checkout")
+        console.log(data);
     })
     .catch(error => {
         console.error('Error:', error);
