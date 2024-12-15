@@ -59,6 +59,7 @@ public function register(Request $request)
         'full_name'  => 'required',
         'email' => 'required|email|unique:customers,email',
         'password' => 'required',
+        'address' => 'required',
     ]);
 
 
@@ -66,6 +67,7 @@ public function register(Request $request)
         'full_name' => $validated['full_name'],
         'email' => $validated['email'],
         'password' => bcrypt($validated['password']),
+        'address' => $validated['address'],
     ]);
 
 
