@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Item;
@@ -33,7 +34,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        // return response()->json($request);
         $total_order = 0;
         $receipt_number = Str::random(40);
         
@@ -57,6 +57,24 @@ class OrderController extends Controller
             'customer_id'    => session('customer_login_id'),
             'receipt_number' => $receipt_number,
         ]);
+
+        // Data untuk permintaan ke /charge
+        $paymentData = [
+            'gross_amount'      => $total_order,
+            'order_id'          => $receipt_number
+        ];
+
+        // Kirim permintaan POST ke /charge
+        $response = Http::post(route('pay'), $paymentData);
+
+        // Periksa responsnya
+        if ($response->successful()) {
+            $snapToken = $response->json();
+            // Lakukan sesuatu dengan $snapToken, misalnya menyimpan ke database
+        } else {
+            // Tangani kesalahan, misalnya logging atau melempar exception
+            throw new \Exception('Gagal memproses pembayaran: ' . $response->body());
+        }
 
         return response()->json([
             'message' => 'Order berhasil',

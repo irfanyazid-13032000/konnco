@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ Route::middleware('auth:customers')->group(function () {
     Route::post('/insert/cart', [ProductController::class,'add'])->name('tambah');
     Route::get('/delete/cart/{product_id}', [ProductController::class,'destroy'])->name('hapus');
     Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
-    Route::post('order', [OrderController::class, 'store'])->name('order');
+    Route::post('/order', [OrderController::class, 'store'])->name('order');
+    Route::post('/charge', [PaymentController::class, 'createCharge'])->name('pay');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
 });

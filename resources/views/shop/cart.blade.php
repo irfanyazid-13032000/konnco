@@ -61,6 +61,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{config('midtrans.server_key')}}"></script>
 <script>
 
 
@@ -145,8 +146,8 @@ function checkout() {
         return response.json();
     })
     .then(data => {
-        alert("barang berhasil di-checkout")
-        console.log(data);
+         alert("pesanan sedang dibuat")
+        
     })
     .catch(error => {
         console.error('Error:', error);
