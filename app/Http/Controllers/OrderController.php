@@ -47,7 +47,7 @@ class OrderController extends Controller
                 'qty'                     => $checkout_product['qty'],
                 'item_id'                 => $checkout_product['product_id'],
                 'price'                   => $product_data->price,
-                'total_price_per_item' => $product_data->price * $checkout_product['qty']
+                'total_price_per_item'    => $product_data->price * $checkout_product['qty']
             ]);
             
         }

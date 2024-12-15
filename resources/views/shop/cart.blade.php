@@ -62,6 +62,33 @@
 
 @push('scripts')
 <script>
+
+
+   // Fungsi untuk menaikkan jumlah qty
+   function increaseQuantity(itemId, maxStock) {
+        const input = document.getElementById(`quantity-${itemId}`);
+        if (parseInt(input.value) < maxStock) {
+            input.value = parseInt(input.value) + 1;
+            updateTotal();
+        } else {
+            alert("Stock tidak mencukupi");
+        }
+    }
+    // Fungsi untuk menurunkan jumlah qty
+    function decreaseQuantity(itemId) {
+        const input = document.getElementById(`quantity-${itemId}`);
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateTotal();
+        }
+    }
+
+
+
+
+
+
+
    let total = 0; // Jadikan total sebagai variabel global
 
 // Fungsi untuk toggle semua checkbox
