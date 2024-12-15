@@ -23,7 +23,7 @@ class PaymentController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => rand(),
-                'gross_amount' => $request->amount,
+                'gross_amount' => 3000000,
             ]
         ];
 

@@ -44,6 +44,6 @@ Route::middleware('auth:customers')->group(function () {
     Route::get('/delete/cart/{product_id}', [ProductController::class,'destroy'])->name('hapus');
     Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
     Route::post('/order', [OrderController::class, 'store'])->name('order');
-    Route::post('/charge', [PaymentController::class, 'createCharge'])->name('pay');
+    Route::get('/charge', [PaymentController::class, 'createCharge'])->name('pay');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
 });
