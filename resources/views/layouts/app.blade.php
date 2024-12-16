@@ -23,8 +23,8 @@
       </a>
     </div>
     <ul class="menu">
-      <li><a href="#">Services</a></li>
       @if (session()->has('full_name'))
+      <li><a href="{{ route('purchased') }}">{{session('full_name')}}'s Purchased</a></li>
       <li><a href="{{route('logout')}}">Logout</a></li>
       @else
       <li><a href="{{route('login.index')}}">Login</a></li>
