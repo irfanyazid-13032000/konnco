@@ -47,4 +47,5 @@ Route::middleware('auth:customers')->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('order');
     Route::get('/reduce-stock-delete-cart', [ProductController::class,'reduceStockAndDeleteCart'])->name('kurangi');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
+    Route::get('/purchased', [ProductController::class, 'purchased'])->name('purchased');
 });

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Cart;
 use App\Models\OrderDetail;
+use App\Models\Order;
+use Carbon\Carbon;
+
 
 use Illuminate\Http\Request;
 
@@ -96,10 +99,28 @@ class ProductController extends Controller
         }
 
 
-        return redirect()->route('shop.index');
+        return redirect()->route('purchased');
     }
 
-    
+    public function purchased()
+    {
+        // $carts = Cart::with('item')
+        // ->where('customer_id', session('customer_login_id'))
+        // ->get();
+        $purchased_item = Order::where('customer_id', session('customer_login_id'))
+                            ->join('order_details', 'orders.receipt_number', '=', 'order_details.receipt_number')
+                            ->join('items','order_details.item_id','=','items.id')
+                            ->select('order_details.item_id', 'order_details.price', 'order_details.qty','items.name','items.image','order_details.created_at')
+                            ->orderBy('order_details.created_at','DESC')
+                            ->get()
+                            ->map(function ($item) {
+                                $item->formatted_date = Carbon::parse($item->created_at)->format('d M Y, H:i');
+                                return $item;
+                            });
+        // return $purchased_item;
+
+        return view('shop.purchased',['purchased_item'=>$purchased_item]);
+    }
 
     /**
      * Show the form for creating a new resource.
