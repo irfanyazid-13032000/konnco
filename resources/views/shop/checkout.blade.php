@@ -112,6 +112,7 @@
         @endforeach
       </tbody>
     </table>
+    <p>pesanan akan dikirim ke  : {{$order->customer->address}}</p>
     <p class="total-order">Total Order: <span>Rp. {{ number_format($order->total_order) }}</span></p>
     <form class="checkout-form" onsubmit="return false">
       <div class="form-group">

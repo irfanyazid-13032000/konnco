@@ -37,6 +37,7 @@ Route::post('/login', [CustomerController::class, 'login'])->name('login.store')
 Route::get('/register', [CustomerController::class, 'showRegisterForm'])->name('register.index');
 Route::post('/register', [CustomerController::class, 'register'])->name('register.store');
 
+
 // Protected routes
 Route::middleware('auth:customers')->group(function () {
     Route::get('/cart', [ProductController::class,'cart'])->name('keranjang');
@@ -45,4 +46,5 @@ Route::middleware('auth:customers')->group(function () {
     Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
     Route::post('/order', [OrderController::class, 'store'])->name('order');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
+    Route::get('/after-payment', [PaymentController::class, 'thanks'])->name('register.index');
 });

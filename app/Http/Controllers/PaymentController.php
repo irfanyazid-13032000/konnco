@@ -15,4 +15,10 @@ class PaymentController extends Controller
         $order        = Order::with('customer')->where('receipt_number',session()->get('receipt_number'))->first();
         return view('shop.checkout',compact('order_detail','order'));
     }
+
+    public function thanks()
+    {
+        return 'Thanks';
+    }
+    
 }
