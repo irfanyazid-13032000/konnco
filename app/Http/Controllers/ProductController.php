@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::where('status',"1")->get();
 
         return view('shop.index',compact('items'));
     }
@@ -61,41 +61,43 @@ class ProductController extends Controller
         return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!'], 200);
     }
 
-    public function reduceStock()
-{
-    // Retrieve receipt number from the session
-    $receiptNumber = session('receipt_number');
-    
-    if (!$receiptNumber) {
-        return response()->json(['error' => 'Receipt number not found in session'], 400);
-    }
-
-    // Get order details using the receipt number
-    $orderDetails = OrderDetail::where('receipt_number', $receiptNumber)->get();
-
-    if ($orderDetails->isEmpty()) {
-        return response()->json(['error' => 'No order details found for this receipt number'], 404);
-    }
-
-    // Loop through each order detail and reduce stock
-    foreach ($orderDetails as $orderDetail) {
-        $item = Item::find($orderDetail->item_id);
-
-        if (!$item) {
-            return response()->json(['error' => "Item with ID {$orderDetail->item_id} not found"], 404);
+    public function reduceStockAndDeleteCart()
+    {
+        // Retrieve receipt number from the session
+        $receiptNumber = session('receipt_number');
+        
+        if (!$receiptNumber) {
+            return response()->json(['error' => 'Receipt number not found in session'], 400);
         }
 
-        // Reduce stock by the order detail's quantity
-        if ($item->stock < $orderDetail->qty) {
-            return response()->json(['error' => "Not enough stock for item ID {$orderDetail->item_id}"], 400);
+        // Get order details using the receipt number
+        $orderDetails = OrderDetail::where('receipt_number', $receiptNumber)->get();
+
+        if ($orderDetails->isEmpty()) {
+            return response()->json(['error' => 'No order details found for this receipt number'], 404);
         }
 
-        $item->stock -= $orderDetail->qty;
-        $item->save();
-    }
+        // Loop through each order detail and reduce stock
+        foreach ($orderDetails as $orderDetail) {
+            $item = Item::find($orderDetail->item_id);
 
-    return redirect()->route('shop.index');
-}
+            if (!$item) {
+                return response()->json(['error' => "Item with ID {$orderDetail->item_id} not found"], 404);
+            }
+
+            // Reduce stock by the order detail's quantity
+            if ($item->stock < $orderDetail->qty) {
+                return response()->json(['error' => "Not enough stock for item ID {$orderDetail->item_id}"], 400);
+            }
+
+            $item->stock -= $orderDetail->qty;
+            $item->save();
+            Cart::where('customer_id', session('customer_login_id'))->where('item_id',$orderDetail->item_id)->delete();
+        }
+
+
+        return redirect()->route('shop.index');
+    }
 
     
 

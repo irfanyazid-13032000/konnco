@@ -45,6 +45,6 @@ Route::middleware('auth:customers')->group(function () {
     Route::get('/delete/cart/{product_id}', [ProductController::class,'destroy'])->name('hapus');
     Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
     Route::post('/order', [OrderController::class, 'store'])->name('order');
-    Route::get('/reduce-stock', [ProductController::class,'reduceStock'])->name('kurangi');
+    Route::get('/reduce-stock-delete-cart', [ProductController::class,'reduceStockAndDeleteCart'])->name('kurangi');
     Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');
 });
