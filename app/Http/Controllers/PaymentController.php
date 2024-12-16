@@ -3,31 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Midtrans\Config;
-use Midtrans\Snap;
-
+use App\Models\OrderDetail;
+use App\Models\Order;
 
 
 class PaymentController extends Controller
 {
-    public function __construct()
+    public function checkout(Request $request)
     {
-        Config::$serverKey = config('midtrans.server_key');
-        Config::$isProduction = config('midtrans.is_production');
-        Config::$isSanitized = config('midtrans.is_sanitized');
-        Config::$is3ds = config('midtrans.is_3ds');
-    }
-
-    public function createCharge(Request $request)
-    {
-        $params = [
-            'transaction_details' => [
-                'order_id' => rand(),
-                'gross_amount' => 3000000,
-            ]
-        ];
-
-        $snapToken = Snap::getSnapToken($params);
-        return response()->json($snapToken);
+        $order_detail = OrderDetail::with('item')->where('receipt_number',session()->get('receipt_number'))->get();
+        $order        = Order::with('customer')->where('receipt_number',session()->get('receipt_number'))->first();
+        return $order;
+        return view('shop.checkout',compact('order_detail','order'));
     }
 }

@@ -40,9 +40,7 @@ class CustomerController extends Controller
 
     public function checkout()
     {
-        $order_detail = OrderDetail::where('receipt_number',session()->get('receipt_number'))->get();
-        $order        = Order::where('receipt_number',session()->get('receipt_number'))->first();
-        return view('shop.checkout',compact('order_detail','order'));
+       
     }
 
     public function logout()
