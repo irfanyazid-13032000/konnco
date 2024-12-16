@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\OrderDetail;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +40,9 @@ class CustomerController extends Controller
 
     public function checkout()
     {
-        return view('shop.checkout');
+        $order_detail = OrderDetail::where('receipt_number',session()->get('receipt_number'))->get();
+        $order        = Order::where('receipt_number',session()->get('receipt_number'))->first();
+        return view('shop.checkout',compact('order_detail','order'));
     }
 
     public function logout()

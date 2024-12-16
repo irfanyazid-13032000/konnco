@@ -77,13 +77,15 @@ class OrderController extends Controller
         ];
 
         $snapToken = Snap::getSnapToken($params);
-       
+
+        session(['receipt_number'=>$receipt_number]);
 
         return response()->json([
             'message' => 'Order berhasil',
             'status' => 200,
-            'snap_token' => $snapToken
+            'snap_token' => $snapToken,
         ]);
+
 
         
     }

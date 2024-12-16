@@ -7,7 +7,7 @@
   <body>
     <p>Input snap token retrieved from step 1 (Backend), then click Pay.</p>
     <form onsubmit="return false">
-      <label for="snapToken">Snap Token:</label>
+      <label for="snapToken">Total Order : {{$order->total_order}}</label>
       <input type="text" id="snap-token">
       <button id="pay-button">Pay!</button>
     </form>
