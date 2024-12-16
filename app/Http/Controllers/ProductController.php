@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Cart;
+use App\Models\OrderDetail;
 
 use Illuminate\Http\Request;
 
@@ -59,6 +60,43 @@ class ProductController extends Controller
     
         return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!'], 200);
     }
+
+    public function reduceStock()
+{
+    // Retrieve receipt number from the session
+    $receiptNumber = session('receipt_number');
+    
+    if (!$receiptNumber) {
+        return response()->json(['error' => 'Receipt number not found in session'], 400);
+    }
+
+    // Get order details using the receipt number
+    $orderDetails = OrderDetail::where('receipt_number', $receiptNumber)->get();
+
+    if ($orderDetails->isEmpty()) {
+        return response()->json(['error' => 'No order details found for this receipt number'], 404);
+    }
+
+    // Loop through each order detail and reduce stock
+    foreach ($orderDetails as $orderDetail) {
+        $item = Item::find($orderDetail->item_id);
+
+        if (!$item) {
+            return response()->json(['error' => "Item with ID {$orderDetail->item_id} not found"], 404);
+        }
+
+        // Reduce stock by the order detail's quantity
+        if ($item->stock < $orderDetail->qty) {
+            return response()->json(['error' => "Not enough stock for item ID {$orderDetail->item_id}"], 400);
+        }
+
+        $item->stock -= $orderDetail->qty;
+        $item->save();
+    }
+
+    return redirect()->route('shop.index');
+}
+
     
 
     /**

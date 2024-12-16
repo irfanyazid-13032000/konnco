@@ -141,6 +141,7 @@
       // Trigger Midtrans Snap payment
       snap.pay(snapToken, {
         onSuccess: function (result) {
+          window.location.href = "{{route('kurangi')}}";
           console.log('Payment Success:', result);
           alert('Payment Successful!');
         },
