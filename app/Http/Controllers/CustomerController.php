@@ -38,7 +38,7 @@ class CustomerController extends Controller
 
     public function checkout()
     {
-        return view('checkout');
+        return view('shop.checkout');
     }
 
     public function logout()

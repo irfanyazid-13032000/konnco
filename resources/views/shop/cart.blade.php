@@ -146,7 +146,8 @@ function checkout() {
         return response.json();
     })
     .then(data => {
-         alert("pesanan sedang dibuat")
+        localStorage.setItem("snapToken", data.snap_token);
+        window.location.href = "{{route('checkout')}}";
         
     })
     .catch(error => {

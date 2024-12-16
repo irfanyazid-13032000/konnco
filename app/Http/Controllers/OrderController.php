@@ -8,10 +8,21 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Item;
 use Illuminate\Support\Str;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -58,27 +69,20 @@ class OrderController extends Controller
             'receipt_number' => $receipt_number,
         ]);
 
-        // Data untuk permintaan ke /charge
-        $paymentData = [
-            'gross_amount'      => $total_order,
-            'order_id'          => $receipt_number
+        $params = [
+            'transaction_details' => [
+                'order_id' => $receipt_number,
+                'gross_amount' => $total_order,
+            ]
         ];
 
-        // Kirim permintaan POST ke /charge
-        $response = Http::post(route('pay'), $paymentData);
-
-        // Periksa responsnya
-        if ($response->successful()) {
-            $snapToken = $response->json();
-            // Lakukan sesuatu dengan $snapToken, misalnya menyimpan ke database
-        } else {
-            // Tangani kesalahan, misalnya logging atau melempar exception
-            throw new \Exception('Gagal memproses pembayaran: ' . $response->body());
-        }
+        $snapToken = Snap::getSnapToken($params);
+       
 
         return response()->json([
             'message' => 'Order berhasil',
-            'status' => 200
+            'status' => 200,
+            'snap_token' => $snapToken
         ]);
 
         
