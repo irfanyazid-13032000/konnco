@@ -22,8 +22,6 @@ CREATE TABLE `carts` (
   CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `carts` (`id`, `item_id`, `qty`, `customer_id`, `created_at`, `updated_at`) VALUES
-(8,	1,	1,	1,	'2024-12-13 07:43:41',	'2024-12-13 07:43:41');
 
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
@@ -41,7 +39,8 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `full_name`, `email`, `password`, `address`, `created_at`, `updated_at`) VALUES
 (1,	'yazid',	'yazid@gmail.com',	'$2y$10$cfSewzzFSwt5S0GouIF0TuNzXAgUcGIBV4Ic9e/udYhC1kEx1nO52',	'jombang',	'2024-12-12 00:50:32',	'2024-12-12 00:50:32'),
 (2,	'irfan',	'irfan@gmail.com',	'$2y$10$BHDriIEt7dju40kEaN7XOeCPX3MkwnaI9dHMkoRBLHKRhRA70Axt6',	'surabaya',	'2024-12-12 06:56:02',	'2024-12-12 06:56:02'),
-(3,	'roni',	'roni@gmail.com',	'$2y$10$QzhONxsyeP1JGJpkIPYDfuDv4Fid.5.KBGTtPUKvXiE7mcbpOViZO',	'gak punya rumah',	'2024-12-15 02:40:02',	'2024-12-15 02:40:02');
+(3,	'roni',	'roni@gmail.com',	'$2y$10$QzhONxsyeP1JGJpkIPYDfuDv4Fid.5.KBGTtPUKvXiE7mcbpOViZO',	'gak punya rumah',	'2024-12-15 02:40:02',	'2024-12-15 02:40:02'),
+(4,	'rudi',	'rudi@gmail.com',	'$2y$10$ly3OLTC53IlNkom2Ki7ut.PsBdwWDwOZD3ine9XUdhnUmNGpfecJC',	'surabaya',	'2024-12-16 23:28:13',	'2024-12-16 23:28:13');
 
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
@@ -73,7 +72,8 @@ CREATE TABLE `items` (
 
 INSERT INTO `items` (`id`, `name`, `stock`, `price`, `status`, `image`, `description`, `created_at`, `updated_at`) VALUES
 (1,	'rexus daxa',	0,	1000,	0,	'01JETZ7JHZPEBSXMA6VCBCC3S1.jpg',	'ini adalah sebuah stik yang sangat bagus',	'2024-12-11 06:41:13',	'2024-12-16 09:19:34'),
-(2,	'Xinmeng M75 Pro',	5,	1500,	1,	'01JEV082K84PM5BA5ZD5KNHVBY.jpg',	'keyboard bagus yang ingin kubeli',	'2024-12-11 06:58:58',	'2024-12-11 06:58:58');
+(2,	'Xinmeng M75 Pro',	5,	1500,	1,	'01JEV082K84PM5BA5ZD5KNHVBY.jpg',	'keyboard bagus yang ingin kubeli',	'2024-12-11 06:58:58',	'2024-12-11 06:58:58'),
+(3,	'xbox series x',	4,	6800000,	1,	'01JF9M67S4GN0MW0J32KYBT5XT.jpg',	'ini xbox yang bagus',	'2024-12-16 23:16:51',	'2024-12-16 23:29:17');
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
@@ -108,19 +108,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `orders` (`receipt_number`, `customer_id`, `total_order`, `paid`, `created_at`, `updated_at`) VALUES
-('agtrqxC85rPG86R64cUZfPkSwryuxUVu7LYirZdo',	2,	2000,	0,	'2024-12-16 06:47:18',	'2024-12-16 06:47:18'),
-('ASvKdHCpFVIgpfdNKI28olZDNsm6mFRiQ81i8JbW',	2,	1000,	0,	'2024-12-16 09:10:54',	'2024-12-16 09:10:54'),
-('Azvaey445jULCFqUePUlpp5GWl3vCLs9SGc0HtBb',	2,	2000,	0,	'2024-12-16 06:27:56',	'2024-12-16 06:27:56'),
-('cw8gnSZ0WQ2dkpYvm5YHmGyeEaauCAJRXZsrOF27',	2,	0,	0,	'2024-12-16 09:03:59',	'2024-12-16 09:03:59'),
-('ER2cG78ZJdi5Dq1i3iSfe5GGPvPrzVfsx6TlIDng',	2,	2000,	0,	'2024-12-16 06:43:01',	'2024-12-16 06:43:01'),
-('EY9mgRuD01HiUU1NnAWHPkfuYwpEWXZLDqzgPvb6',	2,	0,	0,	'2024-12-16 09:05:42',	'2024-12-16 09:05:42'),
-('g0QIenKByFyMQyakVEnuv4rJRltt9ZBDiqUCeikk',	2,	4000,	0,	'2024-12-16 09:06:06',	'2024-12-16 09:06:06'),
-('g412YHg1dEvdxceSbMatLdNgICzTASnthAfAQtwB',	2,	0,	0,	'2024-12-16 09:04:25',	'2024-12-16 09:04:25'),
-('HxvcHsWRc5nxFSKtLBTaopWPJTXQRx1kDtpLc4xm',	2,	0,	0,	'2024-12-16 09:05:10',	'2024-12-16 09:05:10'),
-('i4nLhMn3GCBjuz0qoIqadpTC0ZTwAQPXXo59LOsL',	2,	3000,	0,	'2024-12-16 09:18:37',	'2024-12-16 09:18:37'),
-('ip7xfZyoqzX0nZug3l8shgABQSFYOmNvAG6szURU',	2,	2000,	0,	'2024-12-16 06:39:17',	'2024-12-16 06:39:17'),
-('oPDKfbYMUDQo0VZzs7aKdIWhAXjk4Q0QmPby38rl',	2,	3000,	0,	'2024-12-16 06:15:18',	'2024-12-16 06:15:18'),
-('rbuWwgFhNltwTON6gPdWiVQr2MPoEuH0R7CrM35v',	2,	2000,	0,	'2024-12-16 06:41:08',	'2024-12-16 06:41:08');
+('h5BOru5HJQOfPVEhXTrFKvye6v2kyg6oexqASJtt',	4,	13600000,	0,	'2024-12-16 23:28:45',	'2024-12-16 23:28:45');
 
 DROP TABLE IF EXISTS `order_details`;
 CREATE TABLE `order_details` (
@@ -138,15 +126,7 @@ CREATE TABLE `order_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `order_details` (`id`, `receipt_number`, `qty`, `item_id`, `price`, `total_price_per_item`, `created_at`, `updated_at`) VALUES
-(41,	'oPDKfbYMUDQo0VZzs7aKdIWhAXjk4Q0QmPby38rl',	3,	1,	1000,	3000,	'2024-12-16 06:15:18',	'2024-12-16 06:15:18'),
-(42,	'Azvaey445jULCFqUePUlpp5GWl3vCLs9SGc0HtBb',	2,	1,	1000,	2000,	'2024-12-16 06:27:56',	'2024-12-16 06:27:56'),
-(43,	'ip7xfZyoqzX0nZug3l8shgABQSFYOmNvAG6szURU',	2,	1,	1000,	2000,	'2024-12-16 06:39:17',	'2024-12-16 06:39:17'),
-(44,	'rbuWwgFhNltwTON6gPdWiVQr2MPoEuH0R7CrM35v',	2,	1,	1000,	2000,	'2024-12-16 06:41:08',	'2024-12-16 06:41:08'),
-(45,	'ER2cG78ZJdi5Dq1i3iSfe5GGPvPrzVfsx6TlIDng',	2,	1,	1000,	2000,	'2024-12-16 06:43:01',	'2024-12-16 06:43:01'),
-(46,	'agtrqxC85rPG86R64cUZfPkSwryuxUVu7LYirZdo',	2,	1,	1000,	2000,	'2024-12-16 06:47:18',	'2024-12-16 06:47:18'),
-(47,	'g0QIenKByFyMQyakVEnuv4rJRltt9ZBDiqUCeikk',	4,	1,	1000,	4000,	'2024-12-16 09:06:06',	'2024-12-16 09:06:06'),
-(48,	'ASvKdHCpFVIgpfdNKI28olZDNsm6mFRiQ81i8JbW',	1,	1,	1000,	1000,	'2024-12-16 09:10:54',	'2024-12-16 09:10:54'),
-(49,	'i4nLhMn3GCBjuz0qoIqadpTC0ZTwAQPXXo59LOsL',	3,	1,	1000,	3000,	'2024-12-16 09:18:37',	'2024-12-16 09:18:37');
+(50,	'h5BOru5HJQOfPVEhXTrFKvye6v2kyg6oexqASJtt',	2,	3,	6800000,	13600000,	'2024-12-16 23:28:45',	'2024-12-16 23:28:45');
 
 DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
@@ -190,6 +170,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1,	'jihu',	'jihu@gmail.com',	NULL,	'$2y$10$ufRrYhdBoVZShyeU7M.wf.YTQE/yVOMuS01tdRcsfb4mfJtw6rx.C',	NULL,	'2024-12-10 02:13:01',	'2024-12-10 02:13:01');
+(1,	'jihu',	'jihu@gmail.com',	NULL,	'$2y$10$ufRrYhdBoVZShyeU7M.wf.YTQE/yVOMuS01tdRcsfb4mfJtw6rx.C',	NULL,	'2024-12-10 02:13:01',	'2024-12-10 02:13:01'),
+(2,	'roni',	'roni@gmail.com',	NULL,	'$2y$10$u/GJWjLiJtf2IDOlRwtdmuT6G70FMamOEQo4oytlKQ.ybtmbLDiYS',	NULL,	'2024-12-16 23:14:20',	'2024-12-16 23:14:20');
 
--- 2024-12-16 17:37:30
+-- 2024-12-17 06:36:35
